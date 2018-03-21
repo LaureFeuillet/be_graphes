@@ -228,7 +228,6 @@ public class Path {
      */
     public double getTravelTime(double speed) {
         // TODO:
-    		
         return 0;
     }
 
