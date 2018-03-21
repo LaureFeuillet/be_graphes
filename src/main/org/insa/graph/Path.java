@@ -1,4 +1,4 @@
-package org.insa.graph;
+	package org.insa.graph;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -224,11 +224,14 @@ public class Path {
      * @return Time (in seconds) required to travel this path at the given speed (in
      *         kilometers-per-hour).
      * 
-     * @deprecated Need to be implemented.
      */
     public double getTravelTime(double speed) {
-        // TODO:
-        return 0;
+	    	double time = 0;
+		for(Arc arc : this.arcs)
+		{
+			time = time + arc.getTravelTime(speed);
+		}
+	    return time;
     }
 
     /**
