@@ -30,11 +30,17 @@ public class Path {
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>(); 
         boolean initialized = false; 
+        
+        if(nodes.size() == 1)
+        {
+        		return new Path(graph, nodes.get(0));
+        }
+        
         for (int i = 0; i<nodes.size()-1; i++) // On parcourt la liste de noeuds
         {
         		for(Arc successeur : nodes.get(i)) // On parcourt les arcs issus du noeud actuel
         		{
-        			if(successeur.getDestination().compareTo(nodes.get(i+1)) == 0) // C'est égal
+        			if(successeur.getDestination() == nodes.get(i+1)) // C'est égal
         			{
         				if(!initialized) // Non initialisé
         				{
@@ -47,14 +53,14 @@ public class Path {
         						arcs.set(i, successeur);
         					}
         				}
-        			} else 
-        			{
-        				throw new IllegalArgumentException("createFastestPathFromNodes : Pas d'arc entre" + i + " et " + Integer.toString((i+1)));
-        			}
+        			} 
+        		}
+        		if(!initialized)
+        		{
+        			throw new IllegalArgumentException("createFastestPathFromNodes : Pas d'arc entre " + i + "et " + Integer.toString(i+1));
         		}
         		initialized = false;
         }
-        
         return new Path(graph, arcs);
     }
 
