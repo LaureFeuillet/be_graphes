@@ -44,7 +44,7 @@ public class Path {
         				{
         					if (successeur.getMinimumTravelTime() < arcs.get(i).getMinimumTravelTime())
         					{
-        						arcs.
+        						
         					}
         				}
         			}
@@ -71,13 +71,46 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      * 
-     * @deprecated Need to be implemented.
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
-        return new Path(graph, arcs);
+        boolean initialized = false; 
+        if(nodes.size() == 1)
+        {
+        		return new Path(graph, nodes.get(0));
+        }
+        else {
+	        for (int i = 0; i<nodes.size()-1; i++) // On parcourt la liste de noeuds
+	        {
+	        		for(Arc successeur : nodes.get(i)) // On parcourt les arcs issus du noeud actuel
+	        		{	
+	        			if(successeur.getDestination() == nodes.get(i+1)) // C'est égal
+	        			{
+	        				if(!initialized) // Non initialisé
+	        				{
+	        					initialized = true;
+	        					arcs.add(successeur);
+	        				} else // Déjà initialisé
+	        				{
+	        					if (successeur.getLength() < arcs.get(i).getLength())
+	        					{
+	        						arcs.set(i,successeur);
+	        					}
+	        				}
+	        			}
+	        			
+	        			
+	        		}
+	        		if(initialized == false)
+	        		{
+	        			throw new IllegalArgumentException("createShortestPathFromNodes : Pas d'arc entre deux noeuds.");
+	        		}
+	        		initialized = false; 
+	        }
+    		}
+        Path result = new Path(graph, arcs);
+        	return result; 
     }
 
     /**
