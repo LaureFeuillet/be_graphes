@@ -39,7 +39,11 @@ public class Path {
         
         return new Path(graph, arcs);
     }
-
+    /*
+    if ("il n'y a pas d'arc entre deux des noeuds") {
+        throw new IllegalArgumentException(Integer.toString(value));
+      }
+    */
     /**
      * Create a new path that goes through the given list of nodes (in order),
      * choosing the shortest route if multiple are available.
