@@ -44,9 +44,12 @@ public class Path {
         				{
         					if (successeur.getMinimumTravelTime() < arcs.get(i).getMinimumTravelTime())
         					{
-        						arcs.
+        						arcs.set(i, successeur);
         					}
         				}
+        			} else 
+        			{
+        				throw new IllegalArgumentException("createFastestPathFromNodes : Pas d'arc entre" + i + " et " + Integer.toString((i+1)));
         			}
         		}
         		initialized = false;
@@ -54,11 +57,7 @@ public class Path {
         
         return new Path(graph, arcs);
     }
-    /*
-    if ("il n'y a pas d'arc entre deux des noeuds") {
-        throw new IllegalArgumentException(Integer.toString(value));
-      }
-    */
+
     /**
      * Create a new path that goes through the given list of nodes (in order),
      * choosing the shortest route if multiple are available.
