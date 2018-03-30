@@ -29,11 +29,14 @@ public class Path {
     public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        for (int i = 0; i<nodes.size(); i++) // On parcourt la liste de noeuds
+        for (int i = 0; i<nodes.size()-1; i++) // On parcourt la liste de noeuds
         {
-        		for(Arc successeur : nodes.get(i))
+        		for(Arc successeur : nodes.get(i)) // On parcourt les successeurs du noeud actuel
         		{
-        			
+        			if(successeur.getDestination() == nodes.get(i+1))
+        			{
+        				
+        			}
         		}
         }
         
