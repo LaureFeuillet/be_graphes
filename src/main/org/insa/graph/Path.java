@@ -199,11 +199,35 @@ public class Path {
      * 
      * @return true if the path is valid, false otherwise.
      * 
-     * @deprecated Need to be implemented.
      */
     public boolean isValid() {
-        // TODO:
-        return false;
+        boolean result = false;
+        // Le chemin ne contient qu'un seul NODE
+        if(this.arcs == null)
+        {
+        		result = true;
+        }
+        // Le chemin ne contient qu'un seul ARC
+        if(this.arcs.size() == 1)
+        {
+        		result = true;
+        }
+        // Origine de l'actuel = fin du précédent 
+        int tests = 0;
+        Node bufferNode = this.getOrigin();
+        for(Arc arc : this.arcs)
+        {
+        		if(arc.getOrigin() == bufferNode)
+        		{
+        			tests = tests + 1;
+        			bufferNode = arc.getDestination();
+        		}
+        }
+        if(tests == this.arcs.size())
+        {
+        		result = true;
+        }
+        return result;
     }
 
     /**
