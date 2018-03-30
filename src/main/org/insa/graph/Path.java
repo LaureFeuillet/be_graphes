@@ -28,16 +28,28 @@ public class Path {
      */
     public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
-        List<Arc> arcs = new ArrayList<Arc>();
+        List<Arc> arcs = new ArrayList<Arc>(); 
+        boolean initialized = false; 
         for (int i = 0; i<nodes.size()-1; i++) // On parcourt la liste de noeuds
         {
-        		for(Arc successeur : nodes.get(i)) // On parcourt les successeurs du noeud actuel
+        		for(Arc successeur : nodes.get(i)) // On parcourt les arcs issus du noeud actuel
         		{
-        			if(successeur.getDestination() == nodes.get(i+1))
+        			if(successeur.getDestination().compareTo(nodes.get(i+1)) == 0) // C'est égal
         			{
-        				
+        				if(!initialized) // Non initialisé
+        				{
+        					initialized = true;
+        					arcs.add(successeur);
+        				} else // Déjà initialisé
+        				{
+        					if (successeur.getMinimumTravelTime() < arcs.get(i).getMinimumTravelTime())
+        					{
+        						arcs.
+        					}
+        				}
         			}
         		}
+        		initialized = false;
         }
         
         return new Path(graph, arcs);
