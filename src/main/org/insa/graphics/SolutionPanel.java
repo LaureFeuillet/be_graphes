@@ -191,7 +191,7 @@ public class SolutionPanel extends JPanel implements DrawingChangeListener, Grap
 
         solutionSelect.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+            		System.out.println("Coucou..." + e + "\n Recoucou..." + solutionSelect.getSelectedItem());
                 SolutionBundle bundle = (SolutionBundle) solutionSelect.getSelectedItem();
 
                 // Handle case when the JComboBox is empty.

@@ -8,9 +8,25 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 
     @Override
     protected ShortestPathSolution doRun() {
+    	
         ShortestPathData data = getInputData();
         ShortestPathSolution solution = null;
-        // TODO:
+        
+        // Initialisation
+        // label.cost[0]=0
+        for(int i = 1; i < data.getGraph().size() ; ++i)
+        {
+        		// label.cost[i] = infini
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
         return solution;
     }
 
