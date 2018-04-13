@@ -145,7 +145,9 @@ public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
     @Override
     public void remove(E x) throws ElementNotFoundException {
     		boolean xExiste = false;
-
+    		System.out.println("On remove x : " + x);
+    		System.out.println("Le tas au début : ");
+    		this.print();
     		// Si le tas ne contient pas l'objet x 		
     		for(int i = 0; i<this.currentSize; ++i)
     		{
@@ -154,17 +156,18 @@ public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
     				xExiste = true;
     			}
     		}	
-    		
+    		System.out.println("Booleen : " + xExiste);
     		if(!xExiste) 
     		{
     			throw new ElementNotFoundException(x);
     		}
-    		
         int index = this.array.indexOf(x);
-        this.array.add(index, this.array.get(this.currentSize-1));
+        this.arraySet(index, this.array.get(this.currentSize-1));
         this.percolateUp(index);
     		this.percolateDown(index);
     		--this.currentSize;
+    		System.out.println("Le tas à la fin : ");
+    		this.print();
     }
 
     @Override
