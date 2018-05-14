@@ -6,13 +6,13 @@ public class Label implements Comparable<Label>
 {
 	private int id;
 	private double cout;
-	private Node precedent;
+	private Arc arcVersPrecedent;
 	private boolean marquage;
 	
-	public Label( int init_id, double init_cout, Node init_precedent, boolean init_marquage)
+	public Label( int init_id, double init_cout, Arc init_precedent, boolean init_marquage)
 	{
 		this.cout = init_cout;
-		this.precedent = init_precedent;
+		this.arcVersPrecedent = init_precedent;
 		this.marquage = init_marquage;
 		this.id = init_id;
 	}
@@ -33,12 +33,12 @@ public class Label implements Comparable<Label>
 		this.cout = cout;
 	}
 
-	public Node getPrecedent() {
-		return precedent;
+	public Arc getPrecedent() {
+		return arcVersPrecedent;
 	}
 
-	public void setPrecedent(Node precedent) {
-		this.precedent = precedent;
+	public void setPrecedent(Arc precedent) {
+		this.arcVersPrecedent = precedent;
 	}
 
 	public boolean isMarquage() {
