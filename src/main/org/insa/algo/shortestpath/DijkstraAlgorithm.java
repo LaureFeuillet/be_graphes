@@ -2,6 +2,7 @@ package org.insa.algo.shortestpath;
 import org.insa.algo.AbstractSolution.Status;
 import org.insa.algo.utils.BinaryHeap;
 import org.insa.graph.Arc;
+import org.insa.graph.Node;
 import org.insa.graph.Path;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         		// Extraction du minimum du tas
         		Label labelMin = tas.deleteMin();
         		labelMin.setMarquage(true);
+        		notifyNodeMarked(data.getGraph().get(labelMin.getId()));
         		
         		Iterator<Arc> iterateurSuccesseurs = data.getGraph().get(labelMin.getId()).iterator();
         		// Pour tous les successeurs de labelMin
@@ -66,6 +68,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         					boolean successeurExisteTas = true;
         					if(labelSuccesseur.getCout() == Double.POSITIVE_INFINITY)
         					{
+        						notifyNodeReached(data.getGraph().get(labelSuccesseur.getId()));
         						successeurExisteTas = false;
         					}
         					// ... alors, coût du successeur = le coût du min + le coût de l'arc,
@@ -85,6 +88,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         					// Si ce successeur est la destination, arrêt de l'algorithme.
         					if(data.getDestination() == data.getGraph().get(labelSuccesseur.getId()))
         					{
+        						notifyDestinationReached(data.getGraph().get(labelSuccesseur.getId())); 
         						testArrivee = true;
         						ArrayList<Arc> listeArcs = new ArrayList<>();
         						Arc arcIter = labelSuccesseur.getPrecedent();
@@ -99,6 +103,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         						
         						solution = new ShortestPathSolution(data, Status.OPTIMAL, chemin);
         					}
+        					// Si ce successeur est l'origine du graphe
+        					if(data.getOrigin() == data.getGraph().get(labelSuccesseur.getId()))
+        					{
+        						notifyOriginProcessed(data.getGraph().get(labelSuccesseur.getId()));
+        					}
+        					
         				}
         			}
         		}
