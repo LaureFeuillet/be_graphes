@@ -58,7 +58,7 @@ public class Label implements Comparable<Label>
 		{
 			result = -1;
 		}
-		if(i==0)
+		else if(i==0)
 		{
 			result = 0;
 		}
@@ -67,5 +67,10 @@ public class Label implements Comparable<Label>
 			result = 1;
 		}
 		return result;
+	}
+	
+	public String toString()
+	{
+		return "id = " + this.id + "     cout = " +this.cout;
 	}
 }

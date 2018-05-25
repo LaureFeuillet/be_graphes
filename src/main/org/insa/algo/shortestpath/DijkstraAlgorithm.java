@@ -7,6 +7,7 @@ import org.insa.graph.Path;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Collections;
 
 
 public class DijkstraAlgorithm extends ShortestPathAlgorithm {
@@ -30,28 +31,39 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         		tableauLabel[i] = new Label(i, Double.POSITIVE_INFINITY, null, false);
         }
         
+        
+        
         tableauLabel[data.getOrigin().getId()].setCout(0);
         tas.insert(tableauLabel[data.getOrigin().getId()]);
+        tas.print();
         
         boolean testArrivee = false;
-        
-        boolean testMarquage = true;
-        		
-        while(testMarquage && !testArrivee) // Test du marquage des sommets
-        {
-        		testMarquage = false;
-        		for(int i = 0; i < data.getGraph().size() ; ++i)
-        		{
-        			if(!tableauLabel[i].isMarquage())
-        			{
-        				testMarquage = true;
-        			}		
-        		}
-        		
+                		
+        while(!tas.isEmpty() && !testArrivee) // Test du marquage des sommets
+        {	
         		// Extraction du minimum du tas
         		Label labelMin = tas.deleteMin();
         		labelMin.setMarquage(true);
         		notifyNodeMarked(data.getGraph().get(labelMin.getId()));
+        		
+        		// Si ce successeur est la destination, arrêt de l'algorithme.
+			if(data.getDestination() == data.getGraph().get(labelMin.getId()))
+			{
+				notifyDestinationReached(data.getGraph().get(labelMin.getId())); 
+				testArrivee = true;
+				ArrayList<Arc> listeArcs = new ArrayList<>();
+				Arc arcIter = labelMin.getPrecedent();
+				while(arcIter.getOrigin() != data.getOrigin())
+				{
+					listeArcs.add(arcIter);
+					// Le nouvel arcIter est l'arc du label du noeud d'origine de l'ancien.
+					arcIter = tableauLabel[arcIter.getOrigin().getId()].getPrecedent();
+				}
+				listeArcs.add(arcIter);
+				Collections.reverse(listeArcs);
+				Path chemin = new Path(data.getGraph(), listeArcs);				
+				solution = new ShortestPathSolution(data, Status.OPTIMAL, chemin);
+			}
         		
         		Iterator<Arc> iterateurSuccesseurs = data.getGraph().get(labelMin.getId()).iterator();
         		// Pour tous les successeurs de labelMin
@@ -85,30 +97,11 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         					{
         						tas.insert(labelSuccesseur);
         					}
-        					// Si ce successeur est la destination, arrêt de l'algorithme.
-        					if(data.getDestination() == data.getGraph().get(labelSuccesseur.getId()))
-        					{
-        						notifyDestinationReached(data.getGraph().get(labelSuccesseur.getId())); 
-        						testArrivee = true;
-        						ArrayList<Arc> listeArcs = new ArrayList<>();
-        						Arc arcIter = labelSuccesseur.getPrecedent();
-        						while(arcIter.getOrigin() != data.getOrigin())
-        						{
-        							listeArcs.add(arcIter);
-        							// Le nouvel arcIter est l'arc du label du noeud d'origine de l'ancien.
-        							arcIter = tableauLabel[arcIter.getOrigin().getId()].getPrecedent();
-        						}
-        						listeArcs.add(arcIter);
-        						Path chemin = new Path(data.getGraph(), listeArcs);
-        						
-        						solution = new ShortestPathSolution(data, Status.OPTIMAL, chemin);
-        					}
         					// Si ce successeur est l'origine du graphe
         					if(data.getOrigin() == data.getGraph().get(labelSuccesseur.getId()))
         					{
         						notifyOriginProcessed(data.getGraph().get(labelSuccesseur.getId()));
         					}
-        					
         				}
         			}
         		}
