@@ -39,7 +39,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         
         boolean testArrivee = false;
                 		
-        while(!tas.isEmpty() && !testArrivee) // Test du marquage des sommets
+        while(!tas.isEmpty() && !testArrivee) 
         {	
         		// Extraction du minimum du tas
         		Label labelMin = tas.deleteMin();
