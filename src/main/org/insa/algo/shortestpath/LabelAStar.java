@@ -2,7 +2,7 @@ package org.insa.algo.shortestpath;
 
 import org.insa.graph.*;
 
-public class LabelAStar implements Comparable<Label> 
+public class LabelAStar implements Comparable<LabelAStar> 
 {
 	private int id;
 	private double cout;
@@ -59,7 +59,7 @@ public class LabelAStar implements Comparable<Label>
 		this.marquage = marquage;
 	}
 	
-	public int compareTo(Label o)
+	public int compareTo(LabelAStar o)
 	{
 		int result;
 		double i;
