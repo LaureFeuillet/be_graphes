@@ -89,7 +89,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         					// Si successeur existe dans le tas, alors le mettre à jour.
         					if(successeurExisteTas == true)
         					{
-        						tas.remove(labelSuccesseur);
+        						//tas.remove(labelSuccesseur);
         						tas.insert(labelSuccesseur);
         					}
         					else
