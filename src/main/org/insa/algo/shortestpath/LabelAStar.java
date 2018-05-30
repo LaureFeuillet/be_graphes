@@ -28,7 +28,7 @@ public class LabelAStar implements Comparable<LabelAStar>
 	}
 	
 	public double getCout() {
-		return (this.cout + this.estimation);
+		return this.cout;
 	}
 
 	public void setCout(double cout) {
@@ -63,7 +63,7 @@ public class LabelAStar implements Comparable<LabelAStar>
 	{
 		int result;
 		double i;
-		i =  this.getCout() - o.getCout();
+		i =  (this.getCout() + this.getEstimation()) - (o.getCout() + o.getEstimation());
 		if(i<0)
 		{
 			result = -1;

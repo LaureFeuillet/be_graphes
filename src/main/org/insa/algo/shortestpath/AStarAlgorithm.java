@@ -18,7 +18,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
     }
 
     @Override
-    protected ShortestPathSolution doRun() {
+	public ShortestPathSolution doRun() {
     	
         ShortestPathData data = getInputData();
         ShortestPathSolution solution = null;
@@ -102,7 +102,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         					// Si successeur existe dans le tas, alors le mettre à jour.
         					if(successeurExisteTas == true)
         					{
-        						tas.remove(labelSuccesseur);
+        						//tas.remove(labelSuccesseur);
         						tas.insert(labelSuccesseur);
         					}
         					else
