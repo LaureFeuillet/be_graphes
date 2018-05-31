@@ -24,13 +24,13 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         ShortestPathSolution solution = null;
         
         // En fonction du mode (temps ou distance) il y a un facteur différent pour les estimations.
-        double facteurMode = 1;
+        double facteurMode = 1.0;
         System.out.println("Mode = "+this.getInputData().getMode());
         if (this.getInputData().getMode().equals(Mode.TIME))
         {
         		//L'estimation du minimum de temps est le minimum de la distance divisé par le maximum de vitesse
-        		System.out.println("Maximum de vitesse = "+data.getGraph().getGraphInformation().getMaximumSpeed());
-        		facteurMode = (double)1/(double)data.getGraph().getGraphInformation().getMaximumSpeed();
+        		//System.out.println("Maximum de vitesse = "+data.getGraph().getGraphInformation().getMaximumSpeed());
+        		facteurMode = (double)1/(double)data.getGraph().getGraphInformation().getMaximumSpeed()*(double)3600/(double)1000;
         }
         System.out.println("facteurMode = " + facteurMode);
 
@@ -42,7 +42,9 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         int i = 0;
         for(Node n : data.getGraph())
         {
-        		tableauLabel[i] = new LabelAStar(i, Double.POSITIVE_INFINITY, null, false, facteurMode*n.getPoint().distanceTo(data.getDestination().getPoint()));
+        		tableauLabel[i] = new LabelAStar(i, Double.POSITIVE_INFINITY, null, false, facteurMode*(double)n.getPoint().distanceTo(data.getDestination().getPoint()));
+        		//System.out.println("Estimation exp = "+(facteurMode*n.getPoint().distanceTo(data.getDestination().getPoint()))/(double)1000);
+        		//System.out.println("Estimation réelle = "+tableauLabel[i].getEstimation());
         		i ++;
         }
         
