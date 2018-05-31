@@ -89,26 +89,20 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         				// ... et si le coût du successeur > au coût du min + le coût de l'arc entre les deux ...
         				if(labelSuccesseur.getCout() > (labelMin.getCout() + data.getCost(arcSuccesseur))) 
         				{
-        					boolean successeurExisteTas = true;
-        					if(labelSuccesseur.getCout() == Double.POSITIVE_INFINITY)
+        					if(labelSuccesseur.getCout() != Double.POSITIVE_INFINITY)
+        					{
+        						tas.remove(labelSuccesseur);	
+        					}
+        					else 
         					{
         						notifyNodeReached(data.getGraph().get(labelSuccesseur.getId()));
-        						successeurExisteTas = false;
         					}
         					// ... alors, coût du successeur = le coût du min + le coût de l'arc,
         					// et father du successeur = min.
         					labelSuccesseur.setCout(labelMin.getCout() + data.getCost(arcSuccesseur));
         					labelSuccesseur.setPrecedent(arcSuccesseur);
         					// Si successeur existe dans le tas, alors le mettre à jour.
-        					if(successeurExisteTas == true)
-        					{
-        						//tas.remove(labelSuccesseur);
-        						tas.insert(labelSuccesseur);
-        					}
-        					else
-        					{
-        						tas.insert(labelSuccesseur);
-        					}
+        					tas.insert(labelSuccesseur);
         					// Si ce successeur est l'origine du graphe
         					if(data.getOrigin() == data.getGraph().get(labelSuccesseur.getId()))
         					{
