@@ -25,14 +25,12 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         
         // En fonction du mode (temps ou distance) il y a un facteur différent pour les estimations.
         double facteurMode = 1.0;
-        System.out.println("Mode = "+this.getInputData().getMode());
         if (this.getInputData().getMode().equals(Mode.TIME))
         {
         		//L'estimation du minimum de temps est le minimum de la distance divisé par le maximum de vitesse
         		//System.out.println("Maximum de vitesse = "+data.getGraph().getGraphInformation().getMaximumSpeed());
         		facteurMode = (double)1/(double)data.getGraph().getGraphInformation().getMaximumSpeed()*(double)3600/(double)1000;
         }
-        System.out.println("facteurMode = " + facteurMode);
 
         
         BinaryHeap<LabelAStar> tas = new BinaryHeap<LabelAStar>();

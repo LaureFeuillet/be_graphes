@@ -82,6 +82,6 @@ public abstract class AbstractAlgorithm<Observer> {
      * @return The solution found, must not be null (use an infeasible or unknown
      * status if necessary).
      */
-    protected abstract AbstractSolution doRun();
+    public abstract AbstractSolution doRun();
 
 }

@@ -133,7 +133,7 @@ public class WeaklyConnectedComponentsAlgorithm
     }
 
     @Override
-    protected WeaklyConnectedComponentsSolution doRun() {
+    public WeaklyConnectedComponentsSolution doRun() {
 
         Graph graph = getInputData().getGraph();
         ArrayList<HashSet<Integer>> ugraph = createUndirectedGraph();

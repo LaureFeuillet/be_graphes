@@ -19,7 +19,7 @@ public abstract class PackageSwitchAlgorithm extends AbstractAlgorithm<PackageSw
     }
 
     @Override
-    protected abstract PackageSwitchSolution doRun();
+    public abstract PackageSwitchSolution doRun();
 
     @Override
     public PackageSwitchData getInputData() {
