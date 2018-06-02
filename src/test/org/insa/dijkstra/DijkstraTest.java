@@ -12,7 +12,7 @@ import org.insa.algo.shortestpath.ShortestPathSolution;
 import org.insa.graph.Arc;
 import org.insa.graph.Graph;
 import org.insa.graph.Node;
-
+import org.insa.graph.Path;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -28,6 +28,12 @@ public class DijkstraTest
     // List of arcs in the graph, a2b is the arc from node A (0) to B (1).
     @SuppressWarnings("unused")
     private static Arc a2b, a2c, b2d, b2e, b2f, c2a, c2b, c2f, e2c, e2d, e2f, f2e;
+    
+    // Distancier Bellman-Ford
+    private static Path[][] pathBF = new Path[graph.size()][graph.size()];
+    
+    // Distancier Dijkstra
+    private static Path[][] pathD = new Path[graph.size()][graph.size()];
     
     @BeforeClass
     public static void initAll() throws IOException 
@@ -54,23 +60,28 @@ public class DijkstraTest
         	f2e = Node.linkNodes(nodes[5], nodes[4], 3, null, null);
 
         graph = new Graph("ID", "", Arrays.asList(nodes), null);
+        
+        // Remplissage distancier Bellman-Ford
+        
+        
+        // Remplissage distancier Dijkstra
     }
     
     @Test
     public void testCout()
     {
-    		int i, j;
-    		for(i=0; i<6; ++i)
+    		int i;
+    		int j;
+    		for(i=0; i<graph.size(); ++i)
     		{
-    			for(j=0; j<6; ++j)
+    			for(j=0; j<graph.size(); ++j)
     			{
     				ShortestPathSolution dijkstra = new DijkstraAlgorithm(new ShortestPathData(graph, nodes[i], nodes[j], null)).doRun();
     				ShortestPathSolution bf = new BellmanFordAlgorithm(new ShortestPathData(graph, nodes[i], nodes[j], null)).doRun();
     				assertEquals("Entre x"+i+" et x"+j, dijkstra, bf);
+    				//assertEquals("Test", dijkstra, 1);
+    				dijkstra.toString();
     			}
     		}
-    		
-    		
     }
-    
 }
