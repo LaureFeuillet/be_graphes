@@ -28,7 +28,6 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         if (this.getInputData().getMode().equals(Mode.TIME))
         {
         		//L'estimation du minimum de temps est le minimum de la distance divisé par le maximum de vitesse
-        		//System.out.println("Maximum de vitesse = "+data.getGraph().getGraphInformation().getMaximumSpeed());
         		facteurMode = (double)1/(double)data.getGraph().getGraphInformation().getMaximumSpeed()*(double)3600/(double)1000;
         }
 
@@ -41,8 +40,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         for(Node n : data.getGraph())
         {
         		tableauLabel[i] = new LabelAStar(i, Double.POSITIVE_INFINITY, null, false, facteurMode*(double)n.getPoint().distanceTo(data.getDestination().getPoint()));
-        		//System.out.println("Estimation exp = "+(facteurMode*n.getPoint().distanceTo(data.getDestination().getPoint()))/(double)1000);
-        		//System.out.println("Estimation réelle = "+tableauLabel[i].getEstimation());
+
         		i ++;
         }
         
@@ -53,8 +51,15 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         tas.print();
         
         boolean testArrivee = false;
+        boolean testOrigineDestination = false;
+        
+        if(data.getOrigin() == data.getDestination())
+		{
+			testOrigineDestination = true;
+			notifyDestinationReached(data.getDestination());
+		}
                 		
-        while(!tas.isEmpty() && !testArrivee) 
+        while(!tas.isEmpty() && !testArrivee && !testOrigineDestination) 
         {	
         		// Extraction du minimum du tas
         		LabelAStar labelMin = tas.deleteMin();
@@ -115,7 +120,13 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         			}
         		}
         }
-        if(!testArrivee)
+        if(testOrigineDestination)
+        {
+	        	ArrayList<Arc> listeArcs = new ArrayList<>();
+	        	Path chemin = new Path(data.getGraph(), listeArcs);				
+			solution = new ShortestPathSolution(data, Status.OPTIMAL, chemin);
+        }
+        else if(!testArrivee)
         {
         		solution = new ShortestPathSolution(data, Status.INFEASIBLE);
         }
